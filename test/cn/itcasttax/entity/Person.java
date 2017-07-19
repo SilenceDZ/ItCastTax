@@ -1,7 +1,12 @@
-package cn.itcast.entity;
+package cn.itcasttax.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+
+import org.springframework.stereotype.Repository;
+@Entity
+@Repository
 public class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;

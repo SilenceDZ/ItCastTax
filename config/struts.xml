@@ -5,7 +5,7 @@
 <struts>
 	<constant name="struts.enable.DynamicMethodInvocation" value="false"></constant>
 	<package name="test" namespace="/test" extends="struts-default" strict-method-invocation="false">
-		<action name="action_*" class="cn.itcasttax.action.test.StrutsTestAction" method="{1}">
+		<action name="action_*" class="cn.itcasttax.action.TestAction" method="{1}">
 			<result name="success">/index.jsp</result>
 		</action>
 	</package>
