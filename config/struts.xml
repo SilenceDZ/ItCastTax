@@ -9,4 +9,6 @@
 			<result name="success">/index.jsp</result>
 		</action>
 	</package>
+	
+	<include file="cn/itcast/nsfw/user/config/user-struts.xml"></include>
 </struts>

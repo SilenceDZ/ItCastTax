@@ -14,10 +14,18 @@
 	 
 	<!-- 导入数据库配置 -->
 	<context:property-placeholder location="classpath:db.properties"/>
+		
 	<!-- 扫描注解配置 -->
+	
 	<context:component-scan base-package="cn.itcasttax.service"></context:component-scan>
 	<context:component-scan base-package="cn.itcasttax.entity"></context:component-scan>
 	<context:component-scan base-package="cn.itcasttax.action"></context:component-scan>
+	<!-- 用户模块注解 -->
+	
+	<context:component-scan base-package="cn.itcast.nsfw.user.service.impl"></context:component-scan>
+	<context:component-scan base-package="cn.itcast.nsfw.user.action"></context:component-scan>
+	<context:component-scan base-package="cn.itcast.nsfw.user.dao.impl"></context:component-scan>
+	<context:component-scan base-package="cn.itcast.core.dao.impl"></context:component-scan>
 	
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="jdbcUrl" value="${jdbcUrl}"></property>
@@ -46,11 +54,13 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 		<property name="mappingLocations">
 			<list>
 				<value>classpath:cn/itcasttax/entity/*.hbm.xml</value>
+				<value>classpath:cn/itcast/nsfw/user/entity/*.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -68,6 +78,7 @@
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="save*" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="update*" propagation="REQUIRED" read-only="false"/>
 			<tx:method name="get*" propagation="REQUIRED" read-only="true"/>
 			<tx:method name="load*" propagation="REQUIRED" read-only="true"/>
 			<tx:method name="list*" propagation="REQUIRED" read-only="true"/>
@@ -78,13 +89,15 @@
 	<!-- 配置aop -->
 	<aop:config>
 		<!-- 配置切点 -->
-		<!-- <aop:pointcut expression="execution(* cn.itcasttax.service.impl.*.*(..))" id="servicePoint"/> -->
+		<!-- <aop:pointcut expression="execution(* cn.itcast.nsfw.user.service.impl.*.*(..))" id="servicePoint"/>	 -->	
 		<aop:pointcut expression="bean(*Service)" id="servicePoint"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePoint"/>
 	</aop:config>
+	<!-- 导入外部spring配置文件 -->
+    <import resource="classpath:cn/itcast/*/conf/*-spring.xml"/>
+    <import resource="classpath:cn/itcast/nsfw/*/config/*-spring.xml"/>
 
-
-
+	
 
 
 
