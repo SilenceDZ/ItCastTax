@@ -55,7 +55,7 @@
         <tr>
             <td class="tdBg" width="200px">生日：</td>
             <td><s:textfield id="birthday" name="user.birthday" readonly="true" 
-            onfocus="WdatePicker({skin:'blue',dateFmt:'yyyy-MM-dd'});"/></td>
+            onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'});"/></td>
         </tr>
 		<tr>
             <td class="tdBg" width="200px">状态：</td>

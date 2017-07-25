@@ -15,8 +15,6 @@ import cn.itcast.core.dao.BaseDao;
 
 public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 	private Class<T> clazz;
-	/*@Autowired
-	private SessionFactory sessionFactory;*/
 	
 	@SuppressWarnings("unchecked")
 	public BaseDaoImpl() {
@@ -24,6 +22,18 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
 		clazz=(Class<T>) pt.getActualTypeArguments()[0];
 	}
+	
+	
+	
+	/*@Autowired
+	 * 因为HibernateDaoSupport类中已经有了这个属性，所以不需要再定义
+	private SessionFactory sessionFactory;*/
+	/**
+	 *Title:setMySessionFactory
+	 *Description:自动装配sessionFactory对象，继承自HibernateDaoSupport类。
+	 *@param sessionFactory 
+	 *Throws
+	 */
 	@Autowired
 	public void setMySessionFactory(SessionFactory sessionFactory){
 		super.setSessionFactory(sessionFactory);

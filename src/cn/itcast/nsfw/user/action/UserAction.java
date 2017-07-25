@@ -22,6 +22,8 @@ public class UserAction extends ActionSupport {
 	private User user;
 	private String[] selectedRow;
 	
+	
+	
 	//列表
 	public String listUI(){
 		userList = userService.findObjects();		
