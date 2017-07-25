@@ -28,6 +28,7 @@ public class ExcelUtil {
 			ServletOutputStream outputStream) {
 		try {
 			//1创建工作簿
+			//SXSSFWorkbook类可以用来读取庞大数据的excel表
 			HSSFWorkbook workbook = new HSSFWorkbook();
 			// 1.1创建合并单元格对象
 			CellRangeAddress cellRangeAddress = new CellRangeAddress(0, 0, 0, 4);
