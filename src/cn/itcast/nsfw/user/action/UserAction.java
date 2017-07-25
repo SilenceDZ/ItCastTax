@@ -1,8 +1,12 @@
 package cn.itcast.nsfw.user.action;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -22,7 +26,10 @@ public class UserAction extends ActionSupport {
 	private User user;
 	private String[] selectedRow;
 	
-	
+	//头像上传需要的属性
+	private File headImg;
+	private String headImgFileName;
+	private String headImgContentType;
 	
 	//列表
 	public String listUI(){
@@ -35,9 +42,28 @@ public class UserAction extends ActionSupport {
 	}
 	//保存新增
 	public String add(){
-		if(user!=null){
-			userService.save(user); 
+		try {
+			if(user!=null){
+				//处理头像
+				if(headImg!=null){//1.获取头像文件
+					//2保存头像文件
+					String filePath=ServletActionContext.getServletContext().getRealPath("upload/user"); 
+					//名字要唯一！！
+					//生成的UUID中间有4个“-”	
+					String fileName=UUID.randomUUID().toString().replaceAll("-", "")+headImgFileName.substring(headImgFileName.lastIndexOf("."));
+					System.out.println(filePath);
+					System.out.println(fileName);
+					FileUtils.copyFile(headImg, new File(filePath,fileName));
+					//3设置用户头像路径
+					//要设置相对路径
+					user.setHeadImg("user/"+fileName);
+				}
+				userService.save(user); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
 		return "list";
 	}
 	//跳转到编辑页面
@@ -49,9 +75,23 @@ public class UserAction extends ActionSupport {
 	}
 	//保存编辑
 	public String edit(){
-		System.out.println("UserAction.edit()");
-		if(user!=null ){			
-			userService.update(user);
+		try {
+			if(user!=null){
+				//处理头像
+				if(headImg!=null){//1.获取头像文件
+					//2保存头像文件
+					String filePath=ServletActionContext.getServletContext().getRealPath("upload/user"); 
+					//名字要唯一！！
+					String fileName=UUID.randomUUID().toString().replaceAll("-", "")+headImgFileName.substring(headImgFileName.lastIndexOf("."));
+					FileUtils.copyFile(headImg, new File(filePath,fileName));
+					//3设置用户头像路径
+					//要设置相对路径
+					user.setHeadImg("user/"+fileName);
+				}
+				userService.update(user);  
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return "list";
 	}
@@ -87,6 +127,24 @@ public class UserAction extends ActionSupport {
 	}
 	public void setSelectedRow(String[] selectedRow) {
 		this.selectedRow = selectedRow;
+	}
+	public File getHeadImg() {
+		return headImg;
+	}
+	public void setHeadImg(File headImg) {
+		this.headImg = headImg;
+	}
+	public String getHeadImgFileName() {
+		return headImgFileName;
+	}
+	public void setHeadImgFileName(String headImgFileName) {
+		this.headImgFileName = headImgFileName;
+	}
+	public String getHeadImgContentType() {
+		return headImgContentType;
+	}
+	public void setHeadImgContentType(String headImgContentType) {
+		this.headImgContentType = headImgContentType;
 	}
 	
 	

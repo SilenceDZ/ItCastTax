@@ -22,8 +22,11 @@
         <tr>
             <td class="tdBg" style="width: 200px">头像：</td>
             <td>
-                <img src="" width="100" height="100"/>
-                <input type="file" name="headImg"/>
+                <input type="file" name="headImg" />
+            	<s:if test="%{user.headImg != null && user.headImg != ''}">
+                <img src="${basePath }upload/${user.headImg}" width="100" height="100"/>
+                <s:hidden name="user.headImg"></s:hidden>
+                </s:if>
             </td>
         </tr>
         <tr>
