@@ -2,6 +2,7 @@ package cn.itcast.core.dao.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -20,7 +21,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 	public BaseDaoImpl() {
 		//UserDaoImpl<User>  this是指代的UserDaoImpl类（实例化的子类），所以能获取User.class
 		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
-		clazz=(Class<T>) pt.getActualTypeArguments()[0];
+		clazz=(Class<T>) pt.getActualTypeArguments()[0];		
 	}
 	
 	
@@ -67,6 +68,18 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 	@Override
 	public T findObectsById(Serializable id) {
 		return getHibernateTemplate().get(clazz, id);
+	}
+
+	@Override
+	public void deleteAll(Collection<?> entities) {
+		getHibernateTemplate().deleteAll(entities);
+	}
+
+
+
+	@Override
+	public Session getCurrentSession() {
+		return getHibernateTemplate().getSessionFactory().getCurrentSession();
 	}
 	
 

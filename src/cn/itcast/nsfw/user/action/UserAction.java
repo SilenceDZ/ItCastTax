@@ -14,21 +14,21 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import cn.itcast.core.action.BaseAction;
 import cn.itcast.nsfw.user.entity.User;
 import cn.itcast.nsfw.user.service.UserService;
 
-import com.opensymphony.xwork2.ActionSupport;
 
 
 @Controller("userAction")
-public class UserAction extends ActionSupport {
+public class UserAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
 	private UserService userService;
 	private List<User> userList;
 	private User user;
-	private String[] selectedRow;
+	
 	
 	//头像上传需要的属性
 	private File headImg;
@@ -151,6 +151,31 @@ public class UserAction extends ActionSupport {
 		}
 		return "list";
 	}
+	//检验账号唯一性
+	public void verifyAccount(){
+		System.out.println("UserAction.verifyAccount()");
+		System.out.println(user.getId());
+		try {
+			//1.获取账号id
+			if(user!=null && StringUtils.isNotBlank(user.getAccount())){
+				String res="true";
+				//2.根据账号、id查询记录
+				List<User> userList=userService.findUsersByAccountAndId(user.getAccount(),user.getId());
+				if(userList!=null &&userList.size()>0){
+					res="false";
+				}
+				HttpServletResponse response = ServletActionContext.getResponse();
+				response.setContentType("text/html;charset=utf-8");
+				ServletOutputStream outputStream = response.getOutputStream();
+				outputStream.write(res.getBytes());
+				outputStream.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	
 	//getter setter
 	public User getUser() {
 		return user;
@@ -164,12 +189,7 @@ public class UserAction extends ActionSupport {
 	public void setUserList(List<User> userList) {
 		this.userList = userList;
 	}
-	public String[] getSelectedRow() {
-		return selectedRow;
-	}
-	public void setSelectedRow(String[] selectedRow) {
-		this.selectedRow = selectedRow;
-	}
+	
 	public File getHeadImg() {
 		return headImg;
 	}

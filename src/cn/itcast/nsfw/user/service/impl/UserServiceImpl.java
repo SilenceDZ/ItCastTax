@@ -2,30 +2,15 @@ package cn.itcast.nsfw.user.service.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 
 
-
-
-
-
-
-
-
-
-
-
-
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -117,8 +102,6 @@ public class UserServiceImpl implements UserService {
 					user.setMobile(mobile);
 					String email=row.getCell(5).getStringCellValue();
 					user.setEmail(email);
-					/*SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
-					java.util.Date tempDate=sdf.parse(row.getCell(6).getDateCellValue().toString());*/
 					Date birthday=new Date(row.getCell(6).getDateCellValue().getTime()) ;
 					user.setBirthday(birthday);
 					//设置其他
@@ -132,6 +115,11 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<User> findUsersByAccountAndId(String account,String id) {
+		return userDao.findUsersByAccountAndId(account, id); 
 	}
 	
 

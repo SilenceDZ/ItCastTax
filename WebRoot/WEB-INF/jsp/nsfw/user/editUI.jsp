@@ -6,9 +6,56 @@
     <%@include file="/common/header.jsp"%>
     <%@taglib prefix="s" uri="/struts-tags" %>
 	<script type="text/javascript" src="${basePath }js/datepicker/WdatePicker.js"></script>
+	<script type="text/javascript">
+		var res=false;
+		function verifyAccount(asyncFlag){
+		//undefine与false不等，所以不传值时是异步请求
+			if(asyncFlag!=false)asyncFlag=true;
+			//1.获取账号
+			var $account=$("#account");
+			if($account.val()!=""){
+				//2.异步查询
+				$.ajax({
+					url:"${basePath}nsfw/user_verifyAccount.action",
+					type:"get",
+					async:asyncFlag,
+					data:{"user.account":$account.val(),"user.id":"${user.id}"},
+					success:function(msg){
+						//成功的回调方法
+						if("true"!=msg){
+							alert("该账号已经被使用：请输入其他账号！");
+							$account.focus();
+							res=false;
+						}else{
+							res=true;;
+						}
+					}
+				})	
+			}
+		}
+		function checkForm(){
+			var $name=$("#name");
+			if($name.val()==""){
+				alert("用户名不能为空");
+				$name.focus();
+				return false;
+			}
+			var $password=$("#password");
+			if($password.val()==""){
+				alert("密码不能为空");
+				$name.focus();
+				return false;
+			}
+			verifyAccount(false);
+			/* if(res){
+				document.forms[0].submit();
+			} */
+			return res;
+		}
+	</script>
 </head>
 <body class="rightBody">
-<form id="form" name="form" action="${basePath }nsfw/user_edit.action" method="post" enctype="multipart/form-data">
+<form id="form" name="form" action="${basePath }nsfw/user_edit.action" onsubmit="return checkForm()" method="post" enctype="multipart/form-data">
     <div class="p_d_1">
         <div class="p_d_1_1">
             <div class="content_info">
@@ -31,15 +78,15 @@
         </tr>
         <tr>
             <td class="tdBg" style="width: 200px">用户名：</td>
-            <td><s:textfield name="user.name"/></td>
+            <td><s:textfield id="name" name="user.name"/></td>
         </tr>
         <tr>
             <td class="tdBg" style="width: 200px">帐号：</td>
-            <td><s:textfield name="user.account"/></td>
+            <td><s:textfield id="account" name="user.account"/></td>
         </tr>
         <tr>
             <td class="tdBg" style="width: 200px">密码：</td>
-            <td><s:textfield name="user.password"/></td>
+            <td><s:textfield id="password" name="user.password"/></td>
         </tr>
         <tr>
             <td class="tdBg" style="width: 200px">性别：</td>

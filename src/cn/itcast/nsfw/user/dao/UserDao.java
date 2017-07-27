@@ -4,6 +4,7 @@ package cn.itcast.nsfw.user.dao;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import cn.itcast.core.dao.BaseDao;
 import cn.itcast.nsfw.user.entity.User;
@@ -16,4 +17,7 @@ import cn.itcast.nsfw.user.entity.User;
  */
 public interface UserDao extends BaseDao<User> {
 	public void deleteAll(Serializable[] ids);
+	
+	public List<User> findUsersByAccountAndId(String account,String id);
+
 }

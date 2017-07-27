@@ -33,5 +33,14 @@ public interface UserService {
 
 	public void importExcel(File userExcel);
 	
+	/**
+	 *Title:findUsersByAccountAndId
+	 *Description:根据账号或id查询账号
+	 *@param account
+	 *@return
+	 *Throws
+	 */
+	public List<User> findUsersByAccountAndId(String account,String id);
+	
 
 }
