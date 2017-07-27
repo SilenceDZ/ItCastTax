@@ -5,6 +5,16 @@
     <title>用户管理</title>
     <%@taglib prefix="s" uri="/struts-tags" %>
     <script type="text/javascript" src="${basePath }js/datepicker/WdatePicker.js"></script>
+	<script type="text/javascript">
+		function verifyAccount(){
+			//1.获取账号
+			var account=$("#account").val();
+			if(account!=""){
+				//2.异步查询
+				
+			}
+		}
+	</script>
 </head>
 <body class="rightBody">
 <form id="form" name="form" action="${basePath }nsfw/user_add.action" method="post" enctype="multipart/form-data">
@@ -30,7 +40,7 @@
         </tr>
         <tr>
             <td class="tdBg" width="200px">帐号：</td>
-            <td><s:textfield name="user.account"/></td>
+            <td><s:textfield id="account" name="user.account" onchange="verifyAccount()"/></td>
         </tr>
         <tr>
             <td class="tdBg" width="200px">密码：</td>
