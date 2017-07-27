@@ -9,6 +9,23 @@
 			<result name="success">/index.jsp</result>
 		</action>
 	</package>
-	
+	<!-- 系统异常处理 -->
+	<package name="base-default" namespace="/" extends="struts-default">
+		<!-- 定制返回结果类型 -->
+		<result-types>
+			<result-type name="error" class="cn.itcast.core.action.SysActionResult"></result-type>
+		</result-types>
+		<!-- 全局结果映射 -->
+		<global-results>
+		<result name="error" type="error">/WEB-INF/jsp/error.jsp</result>
+			<result name="sysError">/WEB-INF/jsp/error.jsp</result>
+			<result name="input">/WEB-INF/jsp/error.jsp</result>
+		</global-results>
+		<!-- 指定全局异常映射 -->
+		<global-exception-mappings>
+			<exception-mapping result="sysError" exception="cn.itcast.core.exception.SysException"></exception-mapping>
+			<exception-mapping result="in put" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+	</package>
 	<include file="cn/itcast/nsfw/user/config/user-struts.xml"></include>
 </struts>

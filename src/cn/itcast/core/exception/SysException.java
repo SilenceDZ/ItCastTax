@@ -17,7 +17,7 @@ public abstract class SysException extends Exception {
 	}
 
 	public SysException(String message) {
-		super(message);
+		this.errorMsg=message;
 	}
 
 	public SysException(Throwable cause) {

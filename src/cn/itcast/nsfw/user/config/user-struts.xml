@@ -14,7 +14,8 @@
 		</action>
 	</package>
 	 -->
-	<package name="user-action" namespace="/nsfw" extends="struts-default" strict-method-invocation="false">
+	<!-- 因为配置类全局异常处理，所以需要继承base-default这个包 -->
+	<package name="user-action" namespace="/nsfw" extends="base-default" strict-method-invocation="false">
 		<action name="user_*" class="cn.itcast.nsfw.user.action.UserAction" method="{1}">
 			<result name="list" type="redirectAction">
 				<param name="actionName">user_listUI</param>

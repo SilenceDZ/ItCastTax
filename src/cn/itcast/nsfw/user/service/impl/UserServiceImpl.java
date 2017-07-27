@@ -2,13 +2,14 @@ package cn.itcast.nsfw.user.service.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
+
+
 
 
 import org.apache.poi.ss.usermodel.Row;
@@ -18,6 +19,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.itcast.core.exception.ServiceException;
 import cn.itcast.core.util.ExcelUtil;
 import cn.itcast.nsfw.user.dao.UserDao;
 import cn.itcast.nsfw.user.entity.User;
@@ -48,7 +50,12 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<User> findObjects() {
+	public List<User> findObjects() throws ServiceException {
+		try {
+//			int i=1/0;
+		} catch (Exception e) {
+			throw new ServiceException("业务请求失败。\n"+e.getMessage());
+		}
 		return userDao.findObjects();
 	}
 

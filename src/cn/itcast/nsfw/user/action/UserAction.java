@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import cn.itcast.core.action.BaseAction;
+import cn.itcast.core.exception.ActionException;
+import cn.itcast.core.exception.ServiceException;
 import cn.itcast.nsfw.user.entity.User;
 import cn.itcast.nsfw.user.service.UserService;
 
@@ -40,8 +42,13 @@ public class UserAction extends BaseAction {
 	private String userExcelContentType;
 	
 	//列表
-	public String listUI(){
-		userList = userService.findObjects();		
+	public String listUI()throws ActionException{
+		try {
+			userList = userService.findObjects();
+		} catch (ServiceException e) {
+			throw new ActionException("请求操作失败!"+e.getErrorMsg());
+		}		
+//		return "error";
 		return "listUI";
 	}
 	//跳转到新增页面
@@ -136,7 +143,7 @@ public class UserAction extends BaseAction {
 			if( outputStream!=null){
 				outputStream.close();
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
