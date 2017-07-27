@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 
+import cn.itcast.core.exception.ServiceException;
 import cn.itcast.nsfw.user.entity.User;
 
 public interface UserService {
@@ -17,7 +18,7 @@ public interface UserService {
 	
 	public void deleteAll(Serializable[] ids);
 	
-	public List<User> findObjects();
+	public List<User> findObjects() throws ServiceException;
 		
 	public User findObectsById(Serializable id);
 
