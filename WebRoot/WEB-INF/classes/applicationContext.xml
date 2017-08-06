@@ -20,12 +20,18 @@
 	<context:component-scan base-package="cn.itcasttax.service"></context:component-scan>
 	<context:component-scan base-package="cn.itcasttax.entity"></context:component-scan>
 	<context:component-scan base-package="cn.itcasttax.action"></context:component-scan>
+	<!-- 核心模块注解 -->
+	<context:component-scan base-package="cn.itcast.core.dao.impl"></context:component-scan>
 	<!-- 用户模块注解 -->
 	
 	<context:component-scan base-package="cn.itcast.nsfw.user.service.impl"></context:component-scan>
 	<context:component-scan base-package="cn.itcast.nsfw.user.action"></context:component-scan>
 	<context:component-scan base-package="cn.itcast.nsfw.user.dao.impl"></context:component-scan>
-	<context:component-scan base-package="cn.itcast.core.dao.impl"></context:component-scan>
+	<!-- 权限模块注解 -->
+	
+	<context:component-scan base-package="cn.itcast.nsfw.role.service.impl"></context:component-scan>
+	<context:component-scan base-package="cn.itcast.nsfw.role.action"></context:component-scan>
+	<context:component-scan base-package="cn.itcast.nsfw.role.dao.impl"></context:component-scan>
 	
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="jdbcUrl" value="${jdbcUrl}"></property>

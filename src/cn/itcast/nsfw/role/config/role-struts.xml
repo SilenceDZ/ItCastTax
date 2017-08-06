@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 因为配置类全局异常处理，所以需要继承base-default这个包 -->
+	<package name="role-action" namespace="/nsfw" extends="base-default" strict-method-invocation="false">
+		<action name="role_*" class="cn.itcast.nsfw.role.action.RoleAction" method="{1}">
+			<result name="list" type="redirectAction">
+				<param name="actionName">role_listUI</param>
+			</result>
+			<result name="{1}">/WEB-INF/jsp/nsfw/role/{1}.jsp</result>
+		</action>
+	</package>
+</struts>

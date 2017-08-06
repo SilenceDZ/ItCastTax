@@ -28,4 +28,5 @@
 		</global-exception-mappings>
 	</package>
 	<include file="cn/itcast/nsfw/user/config/user-struts.xml"></include>
+	<include file="cn/itcast/nsfw/role/config/role-struts.xml"></include>
 </struts>
