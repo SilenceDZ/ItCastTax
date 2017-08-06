@@ -23,9 +23,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
 		clazz=(Class<T>) pt.getActualTypeArguments()[0];		
 	}
-	
-	
-	
+		
 	/*@Autowired
 	 * 因为HibernateDaoSupport类中已经有了这个属性，所以不需要再定义
 	private SessionFactory sessionFactory;*/

@@ -60,7 +60,7 @@
 		<property name="mappingLocations">
 			<list>
 				<value>classpath:cn/itcasttax/entity/*.hbm.xml</value>
-				<value>classpath:cn/itcast/nsfw/user/entity/*.hbm.xml</value>
+				<value>classpath:cn/itcast/nsfw/*/entity/*.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
