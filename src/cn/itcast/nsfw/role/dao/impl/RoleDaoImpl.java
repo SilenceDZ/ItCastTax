@@ -6,6 +6,9 @@ import java.util.List;
 
 
 
+
+
+import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 
 import cn.itcast.core.dao.impl.BaseDaoImpl;
@@ -25,6 +28,13 @@ public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
 		// super.getHibernateTemplate().deleteAll(users);
 		// HibernateTemplate()只在basedao中使用方便日后的修改
 		super.deleteAll(roles);
+	}
+
+	@Override
+	public void deleteRolePrivilegesByRoleId(String roleId) {
+		Query query = getCurrentSession().createQuery("delete from RolePrivilege where id.role.roleId=?");
+		query.setParameter(0, roleId);
+		query.executeUpdate();
 	}
 
 	

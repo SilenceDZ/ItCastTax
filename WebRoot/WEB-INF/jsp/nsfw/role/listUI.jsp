@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
     <%@include file="/common/header.jsp"%>
@@ -33,6 +34,7 @@
 </head>
 <body class="rightBody">
 <form name="form1" action="" method="post">
+<s:debug></s:debug>
     <div class="p_d_1"> 
         <div class="p_d_1_1">
             <div class="content_info">
@@ -42,34 +44,34 @@
                         角色名称：<s:textfield name="role.name" cssClass="s_text" id="roleName"  cssStyle="width:160px;"/>
                     </li>
                     <li><input type="button" class="s_button" value="搜 索" onclick="doSearch()"/></li>
-                    <li style="float:right;">
+                    <li  style="float:right;">
                         <input type="button" value="新增" class="s_button" onclick="doAdd()"/>&nbsp;
                         <input type="button" value="删除" class="s_button" onclick="doDeleteAll()"/>&nbsp;
                     </li>
                 </div>
 
                 <div class="t_list" style="margin:0px; border:0px none;">
-                    <table width="100%" border="0">
+                    <table style="width:100%;border:0;" >
                         <tr class="t_tit">
-                            <td width="30" align="center"><input type="checkbox" id="selAll" onclick="doSelectAll()" /></td>
-                            <td width="120" align="center">角色名称</td>
-                            <td align="center">权限</td>
-                            <td width="80" align="center">状态</td>
-                            <td width="120" align="center">操作</td>
+                            <td style="width:30;align:center;" ><input type="checkbox" id="selAll" onclick="doSelectAll()" /></td>
+                            <td style="width:120;align:center;" >角色名称</td>
+                            <td style="align:center">权限</td>
+                            <td style="width:80;align:center;">状态</td>
+                            <td style="width:120;align:center;">操作</td>
                         </tr>
-                       		<s:iterator value="roleList" status="st">
+                       		<s:iterator value="roleList" var="roleValue" status="st">
                             <tr <s:if test="#st.odd"> bgcolor="#f8f8f8" </s:if> >
-                                <td align="center"><input type="checkbox" name="selectedRow" value="<s:property value='roleId'/>"/></td>
-                                <td align="center"><s:property value="name"/></td>
+                                <td align="center"><input type="checkbox" name="selectedRow" value="${roleValue.roleId }"/></td>
+                                <td align="center">${roleValue.name }</td>
                                 <td align="center">
                                 	<s:iterator value="rolePrivileges">
                                 		<s:property value="#privilegeMap[id.code]"/>
                                 	</s:iterator>	
                                 </td>
-                                <td align="center"><s:property value="state==1?'有效':'无效'"/></td>
+                                <td align="center">${roleValue.state==1?'有效':'无效' }</td>
                                 <td align="center">
-                                    <a href="javascript:doEdit('<s:property value='roleId'/>')">编辑</a>
-                                    <a href="javascript:doDelete('<s:property value='roleId'/>')">删除</a>
+                                    <a href="javascript:doEdit('${roleValue.roleId }')">编辑</a>
+                                    <a href="javascript:doDelete('${roleValue.roleId }')">删除</a>
                                 </td>
                             </tr>
                           </s:iterator> 
@@ -77,7 +79,7 @@
                 </div>
             </div>
 			<div class="c_pate" style="margin-top: 5px;">
-		<table width="100%" class="pageDown" border="0" cellspacing="0"
+		<table  width="100%" class="pageDown" border="0" cellspacing="0"
 			cellpadding="0">
 			<tr>
 				<td align="right">

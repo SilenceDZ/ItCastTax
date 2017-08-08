@@ -6,7 +6,7 @@
 	<class name="cn.itcast.nsfw.role.entity.RolePrivilege" table="role_privilege">
 		<composite-id name="id" class="cn.itcast.nsfw.role.entity.RolePrivilegeId">
 			<!-- 权限与角色的关系是多对1 -->
-			<key-many-to-one name="role" class="cn.itcast.nsfw.role.entity.Role">
+			<key-many-to-one name="role" lazy="false" class="cn.itcast.nsfw.role.entity.Role">
 				<column name="role_id" not-null="true" length="32"></column>
 			</key-many-to-one>
 			<key-property name="code">

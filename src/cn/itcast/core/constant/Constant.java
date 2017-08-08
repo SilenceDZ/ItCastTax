@@ -17,6 +17,7 @@ public class Constant {
 		PRIVATE_MAP.put(PRIVILEGE_XZGL, "行政管理");
 		PRIVATE_MAP.put(PRIVILEGE_HQFW, "后勤管理");
 		PRIVATE_MAP.put(PRIVILEGE_ZXXX, "在线学习");
+		PRIVATE_MAP.put(PRIVILEGE_NAFW, "纳税服务");
 		PRIVATE_MAP.put(PRIVILEGE_SPACE, "个人空间");
 	}
 }

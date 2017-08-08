@@ -14,7 +14,7 @@
 		<property name="state" type="java.lang.String">
 			<column name="state" length="1"></column>
 		</property>
-		<set name="rolePirivileges" lazy="false" cascade="save-update,delete" inverse="true">
+		<set name="rolePrivileges" lazy="false" cascade="save-update,delete" inverse="true">
 			<key>
 				<column name="role_id" not-null="true"></column>
 			</key>

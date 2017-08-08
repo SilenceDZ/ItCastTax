@@ -10,7 +10,12 @@ public class Role implements Serializable{
 	private String roleId;
 	private String name;
 	private String state;
-	private Set<RolePrivilege> rolePirivileges=new HashSet<RolePrivilege>();
+	
+	/**
+	 * @Fields rolePrivileges:用户权限，
+	 * ！！！如果修改了这里的变量名，对应的get ，set方法和hibernate中的配置文件都应该要修改
+	 */
+	private Set<RolePrivilege> rolePrivileges=new HashSet<RolePrivilege>();
 	//用户状态
 	public static String ROLE_STATE_VALID="1";//有效
 	public static String ROLE_STATE_INVALID="0";
@@ -24,7 +29,7 @@ public class Role implements Serializable{
 		this.roleId = roleId;
 		this.name = name;
 		this.state = state;
-		this.rolePirivileges = rolePirivileges;
+		this.rolePrivileges = rolePirivileges;
 	}
 	
 	public String getRoleId() {
@@ -51,12 +56,12 @@ public class Role implements Serializable{
 		this.state = state;
 	}
 
-	public Set<RolePrivilege> getRolePirivileges() {
-		return rolePirivileges;
+	public Set<RolePrivilege> getRolePrivileges() {
+		return rolePrivileges;
 	}
 
-	public void setRolePirivileges(Set<RolePrivilege> rolePirivileges) {
-		this.rolePirivileges = rolePirivileges;
+	public void setRolePrivileges(Set<RolePrivilege> rolePrivileges) {
+		this.rolePrivileges = rolePrivileges;
 	}
 
 	@Override
@@ -66,7 +71,7 @@ public class Role implements Serializable{
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((roleId == null) ? 0 : roleId.hashCode());
 		result = prime * result
-				+ ((rolePirivileges == null) ? 0 : rolePirivileges.hashCode());
+				+ ((rolePrivileges == null) ? 0 : rolePrivileges.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		return result;
 	}
@@ -90,10 +95,10 @@ public class Role implements Serializable{
 				return false;
 		} else if (!roleId.equals(other.roleId))
 			return false;
-		if (rolePirivileges == null) {
-			if (other.rolePirivileges != null)
+		if (rolePrivileges == null) {
+			if (other.rolePrivileges != null)
 				return false;
-		} else if (!rolePirivileges.equals(other.rolePirivileges))
+		} else if (!rolePrivileges.equals(other.rolePrivileges))
 			return false;
 		if (state == null) {
 			if (other.state != null)

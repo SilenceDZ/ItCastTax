@@ -25,5 +25,11 @@ public class RolePrivilege {
 	public void setId(RolePrivilegeId id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "RolePrivilege [id=" + id + "]";
+	}
+	
 	
 }
