@@ -1,10 +1,7 @@
 package cn.itcast.core.exception;
 
 public class ServiceException extends SysException {
-	
-	/**
-	 * @Fields serialVersionUID:TODO
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	public ServiceException() {
