@@ -19,7 +19,9 @@ public class User implements Serializable {
 	private boolean gender;
 	/**
 	 * @Fields role:用户和角色，多对多关系。
-	 * 		TODO:等到角色模块和用户模块做完再做这里的多对多
+	 * 		一般不适用Hibernate的多对多做
+	 * 1.使得user的关系太多，查询过多的无用信息
+	 * 2.用户模块不是由自己开发，不能随意更改用户的类
 	 */
 //	private Set<> role;
 	private String state;

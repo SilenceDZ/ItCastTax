@@ -8,6 +8,7 @@ import java.util.List;
 
 import cn.itcast.core.dao.BaseDao;
 import cn.itcast.nsfw.user.entity.User;
+import cn.itcast.nsfw.user.entity.UserRole;
 
 /**
  * @author leo
@@ -19,5 +20,15 @@ public interface UserDao extends BaseDao<User> {
 	public void deleteAll(Serializable[] ids);
 	
 	public List<User> findUsersByAccountAndId(String account,String id);
+
+	/**
+	 *Title:saveUserRole
+	 *Description:保存用户角色
+	 *@param userRole
+	 *Throws
+	 */
+	public void saveUserRole(UserRole userRole);
+
+	public void deleteUserRoleByUserId(Serializable id);
 
 }

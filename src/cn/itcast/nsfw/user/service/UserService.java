@@ -42,6 +42,24 @@ public interface UserService {
 	 *Throws
 	 */
 	public List<User> findUsersByAccountAndId(String account,String id);
+
+	/**
+	 *Title:saveUserAndRole
+	 *Description:保存用户及其角色
+	 *@param user
+	 *@param roleIds
+	 *Throws
+	 */ 
+	public void saveUserAndRole(User user, String... roleIds);
+
+	/**
+	 *Title:updateUserAndRole
+	 *Description:更新用户及其角色
+	 *@param user
+	 *@param roleIds
+	 *Throws
+	 */
+	public void updateUserAndRole(User user, String... roleIds);
 	
 
 }

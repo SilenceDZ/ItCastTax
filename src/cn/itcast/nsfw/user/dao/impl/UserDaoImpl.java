@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import cn.itcast.core.dao.impl.BaseDaoImpl;
 import cn.itcast.nsfw.user.dao.UserDao;
 import cn.itcast.nsfw.user.entity.User;
+import cn.itcast.nsfw.user.entity.UserRole;
 
 /**
  * @author leo
@@ -48,6 +49,20 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
  			query.setParameter(1, id);
  		}
 		return query.list();
+	}
+
+	@Override
+	public void saveUserRole(UserRole userRole) {
+		getHibernateTemplate().save(userRole);
+	}
+	/**
+	 * 删除用户的角色
+	 */
+	@Override
+	public void deleteUserRoleByUserId(Serializable id) {
+ 		Query query = getCurrentSession().createQuery("delete from UserRole where id.userId=?");
+		query.setParameter(0, id);
+		query.executeUpdate();
 	}
 	
 }
