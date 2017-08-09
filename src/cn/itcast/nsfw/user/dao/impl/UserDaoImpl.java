@@ -64,5 +64,12 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		query.setParameter(0, id);
 		query.executeUpdate();
 	}
+
+	@Override
+	public List<UserRole> findUserRolesByUserId(String id) {
+		Query query = getCurrentSession().createQuery(" from UserRole where id.userId=?");
+		query.setParameter(0, id);
+		return query.list();
+	}
 	
 }

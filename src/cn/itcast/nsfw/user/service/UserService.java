@@ -8,6 +8,7 @@ import javax.servlet.ServletOutputStream;
 
 import cn.itcast.core.exception.ServiceException;
 import cn.itcast.nsfw.user.entity.User;
+import cn.itcast.nsfw.user.entity.UserRole;
 
 public interface UserService {
 	public void save(User entity);
@@ -60,6 +61,15 @@ public interface UserService {
 	 *Throws
 	 */
 	public void updateUserAndRole(User user, String... roleIds);
+
+	/**
+	 *Title:findUserRolesByUserId
+	 *Description:根据用户id查询该用户对应的所有用户角色
+	 *@param id
+	 *@return
+	 *Throws
+	 */
+	public List<UserRole> findUserRolesByUserId(String id);
 	
 
 }

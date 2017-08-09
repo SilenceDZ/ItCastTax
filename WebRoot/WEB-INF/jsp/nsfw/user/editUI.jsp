@@ -95,7 +95,7 @@
         <tr>
             <td class="tdBg" style="width: 200px">角色：</td>
             <td>
-            <s:checkboxlist list="#roleList" listKey="roleId" listValue="name" name="roleIds"></s:checkboxlist>
+            <s:checkboxlist name="roleIds" list="#roleList" listKey="roleId" listValue="name"></s:checkboxlist>
             </td>
         </tr>
         <tr>

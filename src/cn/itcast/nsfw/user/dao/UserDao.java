@@ -29,6 +29,21 @@ public interface UserDao extends BaseDao<User> {
 	 */
 	public void saveUserRole(UserRole userRole);
 
+	/**
+	 *Title:deleteUserRoleByUserId
+	 *Description:根据用户id删除用户角色
+	 *@param id
+	 *Throws
+	 */
 	public void deleteUserRoleByUserId(Serializable id);
+
+	/**
+	 *Title:findUserRolesByUserId
+	 *Description:通过用户id查找用户角色
+	 *@param id
+	 *@return
+	 *Throws
+	 */
+	public List<UserRole> findUserRolesByUserId(String id);
 
 }

@@ -16,6 +16,7 @@ import javax.servlet.ServletOutputStream;
 
 
 
+
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -159,7 +160,7 @@ public class UserServiceImpl implements UserService {
 		//1.删除该用户对应的所有角色
 		userDao.deleteUserRoleByUserId(user.getId());
 		//2.更新用户
-		save(user);
+		update(user);
 		// 2.保存用户角色
 		if (roleIds != null) {
 			for (String roleId : roleIds) {
@@ -167,6 +168,11 @@ public class UserServiceImpl implements UserService {
 						roleId), user.getId())));
 			}
 		}
+	}
+
+	@Override
+	public List<UserRole> findUserRolesByUserId(String id) {
+		return userDao.findUserRolesByUserId(id);
 	}
 	
 

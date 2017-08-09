@@ -22,6 +22,7 @@ import cn.itcast.core.exception.ActionException;
 import cn.itcast.core.exception.ServiceException;
 import cn.itcast.nsfw.role.service.RoleService;
 import cn.itcast.nsfw.user.entity.User;
+import cn.itcast.nsfw.user.entity.UserRole;
 import cn.itcast.nsfw.user.service.UserService;
 
 
@@ -95,9 +96,18 @@ public class UserAction extends BaseAction {
 	//跳转到编辑页面
 	public String editUI(){
 		//加载角色列表
-				ActionContext.getContext().getContextMap().put("roleList", roleService.findObjects());
+		ActionContext.getContext().getContextMap().put("roleList", roleService.findObjects());
 		if(user!=null &&  StringUtils.isNotBlank(user.getId())){
 			user=userService.findObectsById(user.getId());
+			//处理角色回显问题
+			List<UserRole> list= userService.findUserRolesByUserId(user.getId());
+			if(list!=null && list.size()>0){
+				roleIds=new String[list.size()];
+				int i=0;
+				for (UserRole userRole : list) {
+					roleIds[i++]=userRole.getId().getRole().getRoleId();
+				}
+			}
 		}
 		return "editUI";
 	}
