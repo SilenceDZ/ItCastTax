@@ -23,8 +23,9 @@ body {
 }
 
 .head{
-    width:1000px;
-    margin:0px auto;
+    width:1000;
+   /*  margin:0px auto; */
+   	margin-left:0px;
     height:60px;
 }
 

@@ -31,4 +31,5 @@
 	<include file="cn/itcast/nsfw/role/config/role-struts.xml"></include>
 	<include file="cn/itcast/home/config/home-struts.xml"></include>
 	<include file="cn/itcast/nsfw/home/config/home-struts.xml"></include>
+	<include file="cn/itcast/login/config/login-struts.xml"></include>
 </struts>
