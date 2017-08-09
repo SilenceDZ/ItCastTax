@@ -65,6 +65,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		query.executeUpdate();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserRole> findUserRolesByUserId(String id) {
 		Query query = getCurrentSession().createQuery(" from UserRole where id.userId=?");

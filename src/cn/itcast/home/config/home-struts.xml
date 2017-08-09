@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	
+	<!-- 因为配置类全局异常处理，所以需要继承base-default这个包 -->
+	<package name="home-action" namespace="/sys" extends="base-default" strict-method-invocation="false">
+		<action name="home_*" class="cn.itcast.home.action.HomeAction" method="{1}">
+			<result name="home">/WEB-INF/jsp/home/home.jsp</result>
+			<result name="{1}">/WEB-INF/jsp/home/{1}.jsp</result>
+		</action>
+	</package>
+</struts>
