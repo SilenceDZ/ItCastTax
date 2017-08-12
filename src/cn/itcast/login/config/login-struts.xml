@@ -11,6 +11,7 @@
 				<param name="actionName">home</param>
 			</result>
 			<result name="loginUI">/WEB-INF/jsp/loginUI.jsp</result>
+			<result name="noPermissionUI">/WEB-INF/jsp/noPermissionUI.jsp</result>
 		</action>
 	</package>
 </struts>

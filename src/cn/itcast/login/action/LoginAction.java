@@ -50,7 +50,8 @@ public class LoginAction extends ActionSupport {
 					//1.3、登录成功（有用户记录）
 					//1.3.1、获取用户信息
 					user=list.get(0);
-					//1.3.2、***
+					//1.3.2、根据用户id将用户的所有角色设置到用户中
+					user.setUserRole(userService.findUserRolesByUserId(user.getId()));
 					//1.3.3、将用户信息存入session
 					HttpSession session = ServletActionContext.getRequest().getSession();
 					//这里的标识符，其他开发人员也需要使用，固定写一个字符其他人也需要使用这个字符，可以把这个当成一个
@@ -84,7 +85,15 @@ public class LoginAction extends ActionSupport {
 		session.removeAttribute(Constant.USER);
 		return toLoginUI(); 
 	}
-
+	/**
+	 *Title:toNoPermissionUI
+	 *Description:跳转到没有权限提示页面
+	 *@return
+	 *Throws
+	 */
+	public String toNoPermissionUI(){
+		return "noPermissionUI";
+	}
 	public User getUser() {
 		return user;
 	}
