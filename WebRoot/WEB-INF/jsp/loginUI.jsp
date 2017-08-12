@@ -65,7 +65,6 @@ html { overflow-y: hidden;  }
     <![endif]-->
 </head>
 <body scroll="no">
-
 	<div id="lo_tf">
 	<div class="outside">
 		<!-- 头部 -->
@@ -83,6 +82,9 @@ html { overflow-y: hidden;  }
 		   	<div style="margin-bottom: 100px;width: 251px;padding-top: 100px">
 		   	<!--debug日志： 使用了简单的主题后s：textfield标签就不会独占一行 -->
 		   	<s:form theme="simple" name="form-login" namespace="/sys" action="login_login">
+		   		<div style="padding-left: 18px;height: 20px">
+		   			<font color="red" id="errMsg" size="3px">${loginResult }</font>
+		   		</div>
 		   		<table >
 		   			<tr style="height: 50px">
 		   				<td>
@@ -111,9 +113,11 @@ html { overflow-y: hidden;  }
 		   					<img src="${ctx}/images/login/form_17.png" width="85" height="37" onclick="setClean()"/>
 		   				</td>
 		   				<!-- <td width="50px" align="center"><button type="reset"><h3>清除</h3></button></td> -->
-		   			</tr>
+		   			</tr>		   			
 		   		</table>
-		   	</s:form></div>
+		   		
+		   	</s:form>
+		   	</div>
 		  </div>   
 	       </div>
 	   </div><!-- end main2 -->

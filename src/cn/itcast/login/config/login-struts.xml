@@ -7,7 +7,9 @@
 	
 	<package name="login-action" namespace="/sys" extends="base-default" strict-method-invocation="false">
 		<action name="login_*" class="cn.itcast.login.action.LoginAction" method="{1}">
-			<result name="list">dd.jsp</result>
+			<result name="home" type="redirectAction">
+				<param name="actionName">home</param>
+			</result>
 			<result name="loginUI">/WEB-INF/jsp/loginUI.jsp</result>
 		</action>
 	</package>

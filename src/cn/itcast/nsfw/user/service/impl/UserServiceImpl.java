@@ -17,6 +17,7 @@ import javax.servlet.ServletOutputStream;
 
 
 
+
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -173,6 +174,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserRole> findUserRolesByUserId(String id) {
 		return userDao.findUserRolesByUserId(id);
+	}
+
+	@Override
+	public List<User> findUsersByAccountAndPass(String account, String password) {
+		return userDao.findUserByAccountAndPass(account,password);
 	}
 	
 

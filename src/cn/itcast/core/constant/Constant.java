@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Constant {
+	//系统中session中的用户标识符
+	public static String USER="SYS_USER";
+	
 	//系统权限集合
 	public static String PRIVILEGE_XZGL="xzgl";
 	public static String PRIVILEGE_HQFW="hqfw";

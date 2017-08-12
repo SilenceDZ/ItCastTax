@@ -72,5 +72,14 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		query.setParameter(0, id);
 		return query.list();
 	}
+
+	@Override
+	public List<User> findUserByAccountAndPass(String account, String password) {
+		Query query = getCurrentSession().createQuery(" from User where account=? and password=? and state=?");
+		query.setParameter(0, account);
+		query.setParameter(1, password);
+		query.setParameter(2, User.USER_STATE_VALID);
+		return query.list();
+	}
 	
 }

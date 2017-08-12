@@ -70,6 +70,15 @@ public interface UserService {
 	 *Throws
 	 */
 	public List<UserRole> findUserRolesByUserId(String id);
+	/**
+	 *Title:findUsersByAccountAndPass
+	 *Description:根据用户账号和密码查询用户记录
+	 *@param account
+	 *@param password
+	 *@return
+	 *Throws
+	 */
+	public List<User> findUsersByAccountAndPass(String account, String password);
 	
 
 }
