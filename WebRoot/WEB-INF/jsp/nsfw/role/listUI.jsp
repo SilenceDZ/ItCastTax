@@ -34,7 +34,6 @@
 </head>
 <body class="rightBody">
 <form name="form1" action="" method="post">
-<s:debug></s:debug>
     <div class="p_d_1"> 
         <div class="p_d_1_1">
             <div class="content_info">

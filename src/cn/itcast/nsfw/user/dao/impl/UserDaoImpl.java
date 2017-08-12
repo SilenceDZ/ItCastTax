@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import cn.itcast.core.dao.impl.BaseDaoImpl;
 import cn.itcast.nsfw.user.dao.UserDao;
 import cn.itcast.nsfw.user.entity.User;
+import cn.itcast.nsfw.user.entity.UserRole;
 
 /**
  * @author leo
@@ -47,6 +48,37 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
  		if(StringUtils.isNotBlank(id)){
  			query.setParameter(1, id);
  		}
+		return query.list();
+	}
+
+	@Override
+	public void saveUserRole(UserRole userRole) {
+		getHibernateTemplate().save(userRole);
+	}
+	/**
+	 * 删除用户的角色
+	 */
+	@Override
+	public void deleteUserRoleByUserId(Serializable id) {
+ 		Query query = getCurrentSession().createQuery("delete from UserRole where id.userId=?");
+		query.setParameter(0, id);
+		query.executeUpdate();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserRole> findUserRolesByUserId(String id) {
+		Query query = getCurrentSession().createQuery(" from UserRole where id.userId=?");
+		query.setParameter(0, id);
+		return query.list();
+	}
+
+	@Override
+	public List<User> findUserByAccountAndPass(String account, String password) {
+		Query query = getCurrentSession().createQuery(" from User where account=? and password=? and state=?");
+		query.setParameter(0, account);
+		query.setParameter(1, password);
+		query.setParameter(2, User.USER_STATE_VALID);
 		return query.list();
 	}
 	

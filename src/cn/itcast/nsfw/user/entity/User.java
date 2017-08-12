@@ -2,6 +2,7 @@ package cn.itcast.nsfw.user.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 public class User implements Serializable {
 
@@ -19,9 +20,13 @@ public class User implements Serializable {
 	private boolean gender;
 	/**
 	 * @Fields role:用户和角色，多对多关系。
-	 * 		TODO:等到角色模块和用户模块做完再做这里的多对多
+	 * 		一般不适用Hibernate的多对多做
+	 * 1.使得user的关系太多，查询过多的无用信息
+	 * 2.用户模块不是由自己开发，不能随意更改用户的类（Hibernate的配置文件不能修改）
+	 * 3.也可以继承这个User类，例如一个SessionUser，继承自User，添加了
+	 * List<UserRole>属性，可以有很大的方便
 	 */
-//	private Set<> role;
+	private List<UserRole> userRole;
 	private String state;
 	private String mobile;
 	private String email;
@@ -133,6 +138,12 @@ public class User implements Serializable {
 				+ ", headImg=" + headImg + ", gender=" + gender + ", state="
 				+ state + ", mobile=" + mobile + ", email=" + email
 				+ ", birthday=" + birthday + ", memo=" + memo + "]";
+	}
+	public List<UserRole> getUserRole() {
+		return userRole;
+	}
+	public void setUserRole(List<UserRole> userRole) {
+		this.userRole = userRole;
 	}
 	
 }

@@ -12,6 +12,12 @@ import javax.servlet.ServletOutputStream;
 
 
 
+
+
+
+
+
+
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -21,8 +27,11 @@ import org.springframework.stereotype.Service;
 
 import cn.itcast.core.exception.ServiceException;
 import cn.itcast.core.util.ExcelUtil;
+import cn.itcast.nsfw.role.entity.Role;
 import cn.itcast.nsfw.user.dao.UserDao;
 import cn.itcast.nsfw.user.entity.User;
+import cn.itcast.nsfw.user.entity.UserRole;
+import cn.itcast.nsfw.user.entity.UserRoleId;
 import cn.itcast.nsfw.user.service.UserService;
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -41,6 +50,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void delete(Serializable id) {
+		//把用户对于的角色也删掉
+		userDao.deleteUserRoleByUserId(id);
+		//然后在删除用户
 		userDao.delete(id);;
 	}
 	
@@ -127,6 +139,46 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findUsersByAccountAndId(String account,String id) {
 		return userDao.findUsersByAccountAndId(account, id); 
+	}
+
+	@Override
+	public void saveUserAndRole(User user, String... roleIds) {
+		//1.保存用户,然后才能获取id用来保存中间表
+		save(user);
+		//2.保存用户角色
+		if(roleIds!=null){
+			for (String roleId : roleIds) {
+				//根据id获取role？？？
+//				Role role=null;
+				//不需要查询数据库，直接赋值！！！
+				userDao.saveUserRole(new UserRole(new UserRoleId(new Role(roleId),user.getId()) ));
+			}
+		}
+	}
+
+	@Override
+	public void updateUserAndRole(User user, String... roleIds) {
+		//1.删除该用户对应的所有角色
+		userDao.deleteUserRoleByUserId(user.getId());
+		//2.更新用户
+		update(user);
+		// 2.保存用户角色
+		if (roleIds != null) {
+			for (String roleId : roleIds) {
+				userDao.saveUserRole(new UserRole(new UserRoleId(new Role(
+						roleId), user.getId())));
+			}
+		}
+	}
+
+	@Override
+	public List<UserRole> findUserRolesByUserId(String id) {
+		return userDao.findUserRolesByUserId(id);
+	}
+
+	@Override
+	public List<User> findUsersByAccountAndPass(String account, String password) {
+		return userDao.findUserByAccountAndPass(account,password);
 	}
 	
 

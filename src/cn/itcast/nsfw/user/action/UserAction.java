@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,10 +15,14 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.opensymphony.xwork2.ActionContext;
+
 import cn.itcast.core.action.BaseAction;
 import cn.itcast.core.exception.ActionException;
 import cn.itcast.core.exception.ServiceException;
+import cn.itcast.nsfw.role.service.RoleService;
 import cn.itcast.nsfw.user.entity.User;
+import cn.itcast.nsfw.user.entity.UserRole;
 import cn.itcast.nsfw.user.service.UserService;
 
 
@@ -28,6 +33,8 @@ public class UserAction extends BaseAction {
 	
 	@Autowired
 	private UserService userService;
+	@Resource
+	private RoleService roleService;
 	private List<User> userList;
 	private User user;
 	
@@ -41,6 +48,9 @@ public class UserAction extends BaseAction {
 	private String userExcelFileName;
 	private String userExcelContentType;
 	
+	//接收角色id
+	private String []roleIds;
+	
 	//列表
 	public String listUI()throws ActionException{
 		try {
@@ -53,6 +63,8 @@ public class UserAction extends BaseAction {
 	}
 	//跳转到新增页面
 	public String addUI(){
+		//加载角色列表
+		ActionContext.getContext().getContextMap().put("roleList", roleService.findObjects());
 		return "addUI";
 	}
 	//保存新增
@@ -73,7 +85,7 @@ public class UserAction extends BaseAction {
 					//要设置相对路径
 					user.setHeadImg("user/"+fileName);
 				}
-				userService.save(user); 
+				userService.saveUserAndRole(user,roleIds); 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -83,8 +95,19 @@ public class UserAction extends BaseAction {
 	}
 	//跳转到编辑页面
 	public String editUI(){
+		//加载角色列表
+		ActionContext.getContext().getContextMap().put("roleList", roleService.findObjects());
 		if(user!=null &&  StringUtils.isNotBlank(user.getId())){
 			user=userService.findObectsById(user.getId());
+			//处理角色回显问题
+			List<UserRole> list= userService.findUserRolesByUserId(user.getId());
+			if(list!=null && list.size()>0){
+				roleIds=new String[list.size()];
+				int i=0;
+				for (UserRole userRole : list) {
+					roleIds[i++]=userRole.getId().getRole().getRoleId();
+				}
+			}
 		}
 		return "editUI";
 	}
@@ -103,7 +126,7 @@ public class UserAction extends BaseAction {
 					//要设置相对路径
 					user.setHeadImg("user/"+fileName);
 				}
-				userService.update(user);  
+				userService.updateUserAndRole(user,roleIds);  
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -160,8 +183,6 @@ public class UserAction extends BaseAction {
 	}
 	//检验账号唯一性
 	public void verifyAccount(){
-		System.out.println("UserAction.verifyAccount()");
-		System.out.println(user.getId());
 		try {
 			//1.获取账号id
 			if(user!=null && StringUtils.isNotBlank(user.getAccount())){
@@ -232,6 +253,12 @@ public class UserAction extends BaseAction {
 	}
 	public void setUserExcelContentType(String userExcelContentType) {
 		this.userExcelContentType = userExcelContentType;
+	}
+	public String[] getRoleIds() {
+		return roleIds;
+	}
+	public void setRoleIds(String[] roleIds) {
+		this.roleIds = roleIds;
 	}
 		
 }
